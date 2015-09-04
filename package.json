@@ -1,0 +1,25 @@
+{
+  "name": "gilk2",
+  "description": "Split code into dox like stream",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Peter Hancock <peter.hancock@gmail.com> (https://peterhancock.github.io)",
+  "repository": {
+    "url": "git://github.com/PeterHancock/gilk2.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/**/*.js"
+  },
+  "devDependencies": {
+    "tape": "~4.2.0"
+  },
+  "dependencies": {
+    "acorn": "^2.4.0",
+    "concat-stream": "^1.5.0",
+    "duplexer": "^0.1.1",
+    "marked": "^0.3.5",
+    "through": "^2.3.8",
+    "trumpet": "^1.7.1"
+  }
+}
