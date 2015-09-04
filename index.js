@@ -1,23 +1,43 @@
 var marked = require('marked'),
     splitter = require('./lib/source-splitter'),
-    through = require('through'),
     fs = require('fs'),
-    trumpet = require('trumpet');
+    trumpet = require('trumpet'),
+    template = require('html-template'),
+    map = require('map-stream'),
+    through = require('through'),
+    duplexer = require('duplexer');
 
-var tr = trumpet();
+module.exports = function (config) {
+    var rs = through();
+    var ws = through();
+    
+    var tr = trumpet();
+    var html = template(); 
+    var code = html.template('code-item');
+    
+    var pageHtml = config.template || __dirname + '/templates/page.html'
+    
+    tr.select('#title').createWriteStream().end('Streaming literate JS')
+   
+    fs.createReadStream(pageHtml)
+        .pipe(tr)
+        .pipe(html)
+        .pipe(rs);
+    
+    ws
+        .pipe(splitter())
+        .pipe(map(function(data, cb) {
+            cb(null, renderCodeView(data))
+        }))
+        .pipe(code);
+   
+    return duplexer(ws, rs);
 
-tr.pipe(process.stdout);
+}
 
-var ws = tr.select('#code-list').createWriteStream();
-
-fs.createReadStream(__dirname + '/templates/page.html').pipe(tr);
-
-process.stdin
-    .pipe(splitter())
-    .pipe(through(function (data) {
-        ws.write('<div>' + marked(data.comment) + '</div>');
-        if (data.code) {
-            ws.write('<div><pre class="language-javascript"><code class="language-javascript">' + data.code + '</code></pre></div>');
-        }
-    }))
-    .pipe(ws)
+function renderCodeView(data) {
+    return {
+        '[key=comment]': marked(data.comment)
+        ,'[key=code]': data.code || null
+    }
+}
