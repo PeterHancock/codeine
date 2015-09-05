@@ -18,12 +18,16 @@
   "dependencies": {
     "acorn": "^2.4.0",
     "concat-stream": "^1.5.0",
+    "duplex": "^1.0.0",
     "duplexer": "^0.1.1",
-    "html-template": "^1.2.1",
+    "glob": "^5.0.14",
+    "html-template": "git@github.com:PeterHancock/html-template.git#fix/read-stream-dep",
     "map-stream": "0.0.6",
     "marked": "^0.3.5",
     "minimist": "^1.2.0",
-    "through": "^2.3.8",
-    "trumpet": "^1.7.1"
+    "mkdirp": "^0.5.1",
+    "through2": "^2.0.0",
+    "trumpet": "^1.7.1",
+    "vinyl-fs": "^1.0.0"
   }
 }
