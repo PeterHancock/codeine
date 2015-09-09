@@ -1,59 +1,30 @@
-var marked = require('marked'),
-    splitter = require('./lib/source-splitter'),
-    fs = require('fs'),
-    trumpet = require('trumpet'),
-    template = require('html-template'),
+var generate = require('./lib/generate'),
+    resolveTemplate = require('./lib/resolve-template'),
+    vfs = require('vinyl-fs')
     map = require('map-stream'),
     through = require('through2'),
+    merge = require('merge-stream'),
     duplexer = require('duplexer');
 
 module.exports = function (config) {
 
-    config = config || {}
+    var rs = through.obj();
+    var ws = through.obj();
 
-    var page = fs.createReadStream(config.page || __dirname + '/templates/page.html');
-    var view = config.view || {};
-
-    var formatter = config.formatter || {};
-
-    var commentFormatter = formatter.comments || require('marked');
-    var codeFormatter = formatter.code || function (code) { return code.trim() }
-
-    var pageFormatter = formatter.page || function (view) {
-        var tr = trumpet();
-        if (view.title) {
-            tr.selectAll('.title', function (el) {
-                el.createWriteStream().end(view.title.toString());
-            });
+    resolveTemplate(config.template, function(err, template) {
+        config.page = template.page
+        var s = ws.pipe(map(function (f, cb) {
+                f.path = f.path.replace(/\.js$/,'.html')
+                f.contents = f.contents.pipe(generate(config))
+                    // Why do we have to do this?
+                    .pipe(through());
+                cb(null, f)
+            }))
+        if (template.static) {
+            s = merge(s, vfs.src(template.static +  '/**'))
         }
-        return tr;
-    }
-
-    function renderCode(data) {
-        return {
-            '[key=comment]': commentFormatter(data.comment)
-            ,'[key=code]': codeFormatter(data.code) || null
-        }
-    }
-
-    var html = template();
-    var code = html.template('code-item');
-
-    var rs = through();
-    var ws = through();
-
-    var postProcess = config.base ? require('./lib/fix-urls')(config.base) : through()
-
-    page.pipe(pageFormatter(view))
-        .pipe(html)
-        .pipe(postProcess)
-        .pipe(rs)
-
-    ws.pipe(splitter())
-        .pipe(map(function(data, cb) {
-            cb(null, renderCode(data))
-        }))
-        .pipe(code);
+        s.pipe(rs);
+    });
 
     return duplexer(ws, rs);
 }
