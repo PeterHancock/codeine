@@ -5,7 +5,8 @@ var generateAll = require('../index'),
     args = require('minimist')(process.argv.slice(2)),
     map = require('map-stream'),
     vfs = require('vinyl-fs'),
-    resolveTemplate = require('../lib/resolve-template');
+    resolveTemplate = require('../lib/resolve-template'),
+    isObject = require('is-object');
 
 if (args._.length) {
     var dest = args.dest || '.'
@@ -26,8 +27,14 @@ if (args._.length) {
 } else {
     resolveTemplate(args.template, function(err, template) {
         args.page = template.page
+        if (args.server) {
+            args.server = isObject(args.server) ? args.server : {}
+            args.server.static = template.static
+            require('../lib/server')(args)
+        } else {
         process.stdin
             .pipe(generate(args))
             .pipe(process.stdout);
+        }
     })
 }
