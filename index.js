@@ -6,7 +6,7 @@ var generate = require('./lib/generate'),
     merge = require('merge-stream'),
     duplexer = require('duplexer');
 
-module.exports = function (config) {
+var main = function (config) {
 
     var rs = through.obj();
     var ws = through.obj();
@@ -28,3 +28,6 @@ module.exports = function (config) {
 
     return duplexer(ws, rs);
 }
+
+main.generate = generate
+module.exports = main
