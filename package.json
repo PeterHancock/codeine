@@ -24,6 +24,7 @@
     "fs-extra": "^0.24.0",
     "glob": "^5.0.14",
     "html-template": "git@github.com:PeterHancock/html-template.git#fix/read-stream-dep",
+    "is-function": "^1.0.1",
     "is-object": "^1.0.1",
     "map-stream": "0.0.6",
     "marked": "^0.3.5",

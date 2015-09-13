@@ -4,7 +4,7 @@ var generate = require('./lib/generate'),
     map = require('map-stream'),
     through = require('through2'),
     merge = require('merge-stream'),
-    duplexer = require('duplexer');
+    duplexer = require('duplexer')
 
 var main = function (config) {
 
