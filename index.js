@@ -12,10 +12,11 @@ var main = function (config) {
     var ws = through.obj();
 
     resolveTemplate(config.template, function(err, template) {
-        config.page = template.page
+        var conf = Object.assign({}, config, {template: template})
         var s = ws.pipe(map(function (f, cb) {
+                var conf = Object.assign({}, config, { template: template });
                 f.path = f.path.replace(/\.js$/,'.html')
-                f.contents = f.contents.pipe(generate(config))
+                f.contents = f.contents.pipe(generate(conf))
                     // Why do we have to do this?
                     .pipe(through());
                 cb(null, f)
