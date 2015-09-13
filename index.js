@@ -1,4 +1,5 @@
-var generate = require('./lib/generate'),
+var path = require('path'),
+    generate = require('./lib/generate'),
     resolveTemplate = require('./lib/resolve-template'),
     vfs = require('vinyl-fs')
     map = require('map-stream'),
@@ -12,9 +13,13 @@ var main = function (config) {
     var ws = through.obj();
 
     resolveTemplate(config.template, function(err, template) {
-        var conf = Object.assign({}, config, {template: template})
         var s = ws.pipe(map(function (f, cb) {
-                var conf = Object.assign({}, config, { template: template });
+                var conf = Object.assign({}, config, {
+                    template: template,
+                    view: Object.assign({}, config.view, {
+                        srcfile: path.relative(path.join(f.cwd, f.base), f.path)
+                    })
+                 });
                 f.path = f.path.replace(/\.js$/,'.html')
                 f.contents = f.contents.pipe(generate(conf))
                     // Why do we have to do this?
