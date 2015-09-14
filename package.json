@@ -26,6 +26,7 @@
     "html-template": "git@github.com:PeterHancock/html-template.git#fix/read-stream-dep",
     "is-function": "^1.0.1",
     "is-object": "^1.0.1",
+    "is-string": "^1.0.4",
     "map-stream": "0.0.6",
     "marked": "^0.3.5",
     "merge-stream": "^1.0.0",

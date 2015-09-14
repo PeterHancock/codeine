@@ -27,7 +27,7 @@ var main = function (config) {
                 cb(null, f)
             }))
         if (template.static) {
-            s = merge(s, vfs.src(template.static +  '/**'))
+            s = merge(s, vfs.src(template.static))
         }
         s.pipe(rs);
     });
