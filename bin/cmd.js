@@ -27,7 +27,6 @@ if (args._.length) {
 } else {
     if (args.server) {
         args.server = isObject(args.server) ? args.server : {}
-        args.server.static = template.static
         require('../lib/server')(args)
     } else {
         process.stdin
