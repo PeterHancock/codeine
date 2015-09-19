@@ -7,6 +7,9 @@ var path = require('path'),
     merge = require('merge-stream'),
     duplexer = require('duplexer')
 
+/*
+Generate documentation
+*/
 var main = function (config) {
 
     var rs = through.obj();
