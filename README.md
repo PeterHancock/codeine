@@ -1,4 +1,4 @@
-# doc-u-ment
+# codeine
 
 Streaming APIs for document generation
 
@@ -7,7 +7,7 @@ Streaming APIs for document generation
 
 To render a single page do
 ```
-cat input.js | doc-u-ment [opts]
+cat input.js | codeine [opts]
 ```
 
 The output html wil be written to sdtout
@@ -15,13 +15,13 @@ The output html wil be written to sdtout
 To render a collection of files
 
 ```
-doc-u-ment GLOB [*GLOB] [--dest DIR] [opts]
+codeine GLOB [*GLOB] [--dest DIR] [opts]
 ```
 
 To create a server that re-generates on each request
 
 ```
-doc-u-ment --server [--src DIR] [opts]
+codeine --server [--src DIR] [opts]
 ```
 
 server options include
@@ -30,7 +30,7 @@ server options include
 ##API
 
 ``` javascript
-var doc = require('doc-u-ment')
+var doc = require('codeine')
 ```
 
 ###methods
@@ -42,7 +42,7 @@ Returns a duplex stream
 
 
 ``` javascript
-var generate = require('doc-u-ment').generate
+var generate = require('codeine').generate
 `
 /*
 # noop
@@ -56,9 +56,9 @@ function noop() {
 
 
 ## install
-npm install doc-u-ment
+npm install codeine
 
-npm install -g doc-u-ment
+npm install -g codeine
 
 ## license
 MIT

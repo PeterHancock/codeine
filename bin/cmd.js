@@ -15,13 +15,13 @@ if (args._.length) {
         .pipe(generateAll(args))
         .pipe(vfs.dest(dest))
         .on('end', function () {
-            //console.error('doc-u-ment: end');
+            //console.error('codeine: end');
         })
         .on('close', function () {
-            //console.error('doc-u-ment: close');
+            //console.error('codeine: close');
         })
         .on('error', function (err) {
-            console.error('doc-u-ment: error', err);
+            console.error('codeine: error', err);
         })
 
 } else {

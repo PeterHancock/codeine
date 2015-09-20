@@ -1,11 +1,11 @@
 {
-  "name": "doc-u-ment",
+  "name": "codeine",
   "description": "Split code into dox like stream",
   "version": "0.0.0",
   "license": "MIT",
   "author": "Peter Hancock <peter.hancock@gmail.com> (https://peterhancock.github.io)",
   "repository": {
-    "url": "git://github.com/PeterHancock/doc-u-ment.git"
+    "url": "git://github.com/PeterHancock/codeine.git"
   },
   "main": "index.js",
   "bin": "bin/cmd.js",
