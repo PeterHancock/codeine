@@ -1,6 +1,6 @@
 # codeine
 
-Streaming APIs for document generation
+Generate documentaiton from JavaScript
 
 
 ## CLI

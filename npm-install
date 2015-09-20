@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# While readable-stream is screwed
+npm i 
+cd node_modules/html-template
+npm i
+

@@ -1,6 +1,6 @@
 {
   "name": "codeine",
-  "description": "Split code into dox like stream",
+  "description": "Generate documentation from JavaScript",
   "version": "0.0.0",
   "license": "MIT",
   "author": "Peter Hancock <peter.hancock@gmail.com> (https://peterhancock.github.io)",
@@ -13,7 +13,6 @@
     "test": "tape test/**/*.js"
   },
   "devDependencies": {
-    "ecstatic": "^0.8.0",
     "tape": "~4.2.0"
   },
   "dependencies": {
@@ -21,6 +20,7 @@
     "concat-stream": "^1.5.0",
     "duplex": "^1.0.0",
     "duplexer": "^0.1.1",
+    "ecstatic": "^0.8.0",
     "fs-extra": "^0.24.0",
     "glob": "^5.0.14",
     "html-template": "git@github.com:PeterHancock/html-template.git#fix/read-stream-dep",
