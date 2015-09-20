@@ -23,10 +23,14 @@ var main = function (config) {
                         srcfile: path.relative(path.join(f.cwd, f.base), f.path)
                     })
                  });
-                f.path = f.path.replace(/\.js$/,'.html')
                 f.contents = f.contents.pipe(generate(conf))
                     // Why do we have to do this?
                     .pipe(through());
+                cb(null, f)
+            }))
+            .pipe(map(function(f, cb) {
+                var prefix = config.markdown ? '.md' : '.html'
+                f.path = f.path.replace(/\.js$/, prefix)
                 cb(null, f)
             }))
         if (template.static) {
