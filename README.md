@@ -1,6 +1,6 @@
 # codeine
 
-Generate documentaiton from JavaScript
+Generate documentation from JavaScript
 
 
 ## CLI
